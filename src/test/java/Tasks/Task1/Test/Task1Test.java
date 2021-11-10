@@ -2,6 +2,7 @@ package Tasks.Task1.Test;
 
 import Tasks.Task1.Pages.PasswordsGeneratorPage;
 import org.junit.*;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,12 +15,13 @@ public class Task1Test {
     PasswordsGeneratorPage passwordsGeneratorPage;
 
     @Test
-    public void randomPasswordTest(){
+    public void randomPasswordTest() {
         System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\drivers\\chromedriver.exe");
         webDriver = new ChromeDriver();
         webDriver.get("https://passwordsgenerator.net/ru/");
         wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
-        passwordsGeneratorPage = new PasswordsGeneratorPage(webDriver, wait);
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
+        passwordsGeneratorPage = new PasswordsGeneratorPage(webDriver, wait, javascriptExecutor);
 
         passwordsGeneratorPage.clickGeneratePasswordsBtn();
         String firstPassword = passwordsGeneratorPage.getFinalPassword();
@@ -34,11 +36,11 @@ public class Task1Test {
         passwordsGeneratorPage.changePasswordLengthSelect(length);
         passwordsGeneratorPage.clickGeneratePasswordsBtn();
         String thirdPassword = passwordsGeneratorPage.getFinalPassword();
-        Assert.assertEquals(length,String.valueOf(thirdPassword.length()));
+        Assert.assertEquals(length, String.valueOf(thirdPassword.length()));
     }
 
     @After
-    public void afterAll(){
+    public void afterAll() {
         webDriver.quit();
     }
 }
