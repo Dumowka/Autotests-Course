@@ -65,9 +65,4 @@ public class Task4StepDef {
         thirdPassword = passwordsGeneratorPage.getFinalPassword();
         Assert.assertEquals(length, String.valueOf(thirdPassword.length()));
     }
-
-
-    public void afterAll() {
-        webDriver.quit();
-    }
 }
